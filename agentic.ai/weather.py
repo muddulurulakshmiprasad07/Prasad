@@ -1,142 +1,388 @@
-import json
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
-from urllib.error import URLError, HTTPError
+# import json
+# from urllib.parse import urlencode
+# from urllib.request import Request, urlopen
+# from urllib.error import URLError, HTTPError
 
 
-def get_json(url):
-    """Fetch JSON data from an API."""
-    request = Request(
-        url,
-        headers={"User-Agent": "PythonWeatherReport/1.0"}
-    )
-    with urlopen(request, timeout=15) as response:
-        return json.loads(response.read().decode("utf-8"))
+# def get_json(url):
+#     """Fetch JSON data from an API."""
+#     request = Request(
+#         url,
+#         headers={"User-Agent": "PythonWeatherReport/1.0"}
+#     )
+#     with urlopen(request, timeout=15) as response:
+#         return json.loads(response.read().decode("utf-8"))
 
 
-def describe_weather(code):
-    """Convert Open-Meteo weather codes into readable descriptions."""
-    descriptions = {
-        0: "Clear sky",
-        1: "Mainly clear",
-        2: "Partly cloudy",
-        3: "Overcast",
-        45: "Fog",
-        48: "Depositing rime fog",
-        51: "Light drizzle",
-        53: "Moderate drizzle",
-        55: "Dense drizzle",
-        56: "Light freezing drizzle",
-        57: "Dense freezing drizzle",
-        61: "Slight rain",
-        63: "Moderate rain",
-        65: "Heavy rain",
-        66: "Light freezing rain",
-        67: "Heavy freezing rain",
-        71: "Slight snowfall",
-        73: "Moderate snowfall",
-        75: "Heavy snowfall",
-        77: "Snow grains",
-        80: "Slight rain showers",
-        81: "Moderate rain showers",
-        82: "Violent rain showers",
-        85: "Slight snow showers",
-        86: "Heavy snow showers",
-        95: "Thunderstorm",
-        96: "Thunderstorm with slight hail",
-        99: "Thunderstorm with heavy hail",
-    }
-    return descriptions.get(code, "Unknown conditions")
+# def describe_weather(code):
+#     """Convert Open-Meteo weather codes into readable descriptions."""
+#     descriptions = {
+#         0: "Clear sky",
+#         1: "Mainly clear",
+#         2: "Partly cloudy",
+#         3: "Overcast",
+#         45: "Fog",
+#         48: "Depositing rime fog",
+#         51: "Light drizzle",
+#         53: "Moderate drizzle",
+#         55: "Dense drizzle",
+#         56: "Light freezing drizzle",
+#         57: "Dense freezing drizzle",
+#         61: "Slight rain",
+#         63: "Moderate rain",
+#         65: "Heavy rain",
+#         66: "Light freezing rain",
+#         67: "Heavy freezing rain",
+#         71: "Slight snowfall",
+#         73: "Moderate snowfall",
+#         75: "Heavy snowfall",
+#         77: "Snow grains",
+#         80: "Slight rain showers",
+#         81: "Moderate rain showers",
+#         82: "Violent rain showers",
+#         85: "Slight snow showers",
+#         86: "Heavy snow showers",
+#         95: "Thunderstorm",
+#         96: "Thunderstorm with slight hail",
+#         99: "Thunderstorm with heavy hail",
+#     }
+#     return descriptions.get(code, "Unknown conditions")
 
 
-def get_weather(city):
-    """Find a city and print its current weather report."""
-    # Step 1: Find the city coordinates.
-    geocoding_url = "https://geocoding-api.open-meteo.com/v1/search?" + urlencode({
-        "name": city,
-        "count": 5,
-        "language": "en",
-        "format": "json",
-    })
-    places = get_json(geocoding_url).get("results", [])
+# def get_weather(city):
+#     """Find a city and print its current weather report."""
+#     # Step 1: Find the city coordinates.
+#     geocoding_url = "https://geocoding-api.open-meteo.com/v1/search?" + urlencode({
+#         "name": city,
+#         "count": 5,
+#         "language": "en",
+#         "format": "json",
+#     })
+#     places = get_json(geocoding_url).get("results", [])
 
-    if not places:
-        print(f"\nSorry, I couldn't find '{city}'. Check the spelling and try again.")
-        return
+#     if not places:
+#         print(f"\nSorry, I couldn't find '{city}'. Check the spelling and try again.")
+#         return
 
-    # If several places have the same name, show options.
-    if len(places) > 1:
-        print("\nI found several matching places:")
-        for index, place in enumerate(places, start=1):
-            area = place.get("admin1", "")
-            country = place.get("country", "")
-            details = ", ".join(part for part in [area, country] if part)
-            print(f"{index}. {place['name']}" + (f" — {details}" if details else ""))
+#     # If several places have the same name, show options.
+#     if len(places) > 1:
+#         print("\nI found several matching places:")
+#         for index, place in enumerate(places, start=1):
+#             area = place.get("admin1", "")
+#             country = place.get("country", "")
+#             details = ", ".join(part for part in [area, country] if part)
+#             print(f"{index}. {place['name']}" + (f" — {details}" if details else ""))
 
-        choice = input("Enter the number for your city (or press Enter for option 1): ").strip()
-        if choice.isdigit() and 1 <= int(choice) <= len(places):
-            place = places[int(choice) - 1]
-        else:
-            place = places[0]
-    else:
-        place = places[0]
+#         choice = input("Enter the number for your city (or press Enter for option 1): ").strip()
+#         if choice.isdigit() and 1 <= int(choice) <= len(places):
+#             place = places[int(choice) - 1]
+#         else:
+#             place = places[0]
+#     else:
+#         place = places[0]
 
-    # Step 2: Get current weather for the selected coordinates.
-    weather_url = "https://api.open-meteo.com/v1/forecast?" + urlencode({
-        "latitude": place["latitude"],
-        "longitude": place["longitude"],
-        "current": (
-            "temperature_2m,relative_humidity_2m,apparent_temperature,"
-            "is_day,precipitation,rain,weather_code,wind_speed_10m"
-        ),
-        "timezone": "auto",
-    })
-    data = get_json(weather_url)
-    current = data.get("current", {})
-    units = data.get("current_units", {})
+#     # Step 2: Get current weather for the selected coordinates.
+#     weather_url = "https://api.open-meteo.com/v1/forecast?" + urlencode({
+#         "latitude": place["latitude"],
+#         "longitude": place["longitude"],
+#         "current": (
+#             "temperature_2m,relative_humidity_2m,apparent_temperature,"
+#             "is_day,precipitation,rain,weather_code,wind_speed_10m"
+#         ),
+#         "timezone": "auto",
+#     })
+#     data = get_json(weather_url)
+#     current = data.get("current", {})
+#     units = data.get("current_units", {})
 
-    location_parts = [
-        place.get("name", city),
-        place.get("admin1", ""),
-        place.get("country", ""),
-    ]
-    location = ", ".join(dict.fromkeys(part for part in location_parts if part))
+#     location_parts = [
+#         place.get("name", city),
+#         place.get("admin1", ""),
+#         place.get("country", ""),
+#     ]
+#     location = ", ".join(dict.fromkeys(part for part in location_parts if part))
 
-    print("\n" + "=" * 42)
-    print(f"       WEATHER REPORT: {location.upper()}")
-    print("=" * 42)
-    print(f"Local time       : {current.get('time', 'Not available')}")
-    print(f"Condition        : {describe_weather(current.get('weather_code', -1))}")
-    print(f"Temperature      : {current.get('temperature_2m', 'N/A')} {units.get('temperature_2m', '°C')}")
-    print(f"Feels like       : {current.get('apparent_temperature', 'N/A')} {units.get('apparent_temperature', '°C')}")
-    print(f"Humidity         : {current.get('relative_humidity_2m', 'N/A')}{units.get('relative_humidity_2m', '%')}")
-    print(f"Wind speed       : {current.get('wind_speed_10m', 'N/A')} {units.get('wind_speed_10m', 'km/h')}")
-    print(f"Precipitation    : {current.get('precipitation', 'N/A')} {units.get('precipitation', 'mm')}")
-    print(f"Rain             : {current.get('rain', 'N/A')} {units.get('rain', 'mm')}")
-    print(f"Day or night     : {'Day' if current.get('is_day') == 1 else 'Night'}")
-    print("=" * 42)
-    print("Weather data by Open-Meteo: https://open-meteo.com/")
-
-
-def main():
-    print("Welcome to the City Weather Report")
-    city = input("Enter a city name: ").strip()
-
-    if not city:
-        print("City name cannot be empty.")
-        return
-
-    try:
-        get_weather(city)
-    except HTTPError as error:
-        print(f"Weather service returned an HTTP error: {error.code}")
-    except URLError:
-        print("Could not connect. Please check your internet connection and try again.")
-    except TimeoutError:
-        print("The request timed out. Please try again.")
-    except (KeyError, ValueError, json.JSONDecodeError):
-        print("The weather service returned unexpected data. Please try again.")
+#     print("\n" + "=" * 42)
+#     print(f"       WEATHER REPORT: {location.upper()}")
+#     print("=" * 42)
+#     print(f"Local time       : {current.get('time', 'Not available')}")
+#     print(f"Condition        : {describe_weather(current.get('weather_code', -1))}")
+#     print(f"Temperature      : {current.get('temperature_2m', 'N/A')} {units.get('temperature_2m', '°C')}")
+#     print(f"Feels like       : {current.get('apparent_temperature', 'N/A')} {units.get('apparent_temperature', '°C')}")
+#     print(f"Humidity         : {current.get('relative_humidity_2m', 'N/A')}{units.get('relative_humidity_2m', '%')}")
+#     print(f"Wind speed       : {current.get('wind_speed_10m', 'N/A')} {units.get('wind_speed_10m', 'km/h')}")
+#     print(f"Precipitation    : {current.get('precipitation', 'N/A')} {units.get('precipitation', 'mm')}")
+#     print(f"Rain             : {current.get('rain', 'N/A')} {units.get('rain', 'mm')}")
+#     print(f"Day or night     : {'Day' if current.get('is_day') == 1 else 'Night'}")
+#     print("=" * 42)
+#     print("Weather data by Open-Meteo: https://open-meteo.com/")
 
 
-if __name__ == "__main__":
-    main()
+# def main():
+#     print("Welcome to the City Weather Report")
+#     city = input("Enter a city name: ").strip()
+
+#     if not city:
+#         print("City name cannot be empty.")
+#         return
+
+#     try:
+#         get_weather(city)
+#     except HTTPError as error:
+#         print(f"Weather service returned an HTTP error: {error.code}")
+#     except URLError:
+#         print("Could not connect. Please check your internet connection and try again.")
+#     except TimeoutError:
+#         print("The request timed out. Please try again.")
+#     except (KeyError, ValueError, json.JSONDecodeError):
+#         print("The weather service returned unexpected data. Please try again.")
+
+
+# if __name__ == "__main__":
+#     main()  program 1
+
+# from flask import Flask, request, render_template_string
+# import requests
+# app = Flask(__name__)
+
+# HTML = """
+# <!DOCTYPE html>
+# <html>
+# <head>
+#     <title>Weather Report</title>
+#     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+#     <style>
+#         * {
+#             box-sizing: border-box;
+#         }
+
+#         body {
+#             margin: 0;
+#             font-family: Arial, sans-serif;
+#             background: linear-gradient(135deg, #74ebd5, #9face6);
+#             min-height: 100vh;
+#             display: flex;
+#             justify-content: center;
+#             align-items: center;
+#             padding: 20px;
+#         }
+
+#         .container {
+#             background: white;
+#             width: 100%;
+#             max-width: 480px;
+#             padding: 30px;
+#             border-radius: 20px;
+#             text-align: center;
+#             box-shadow: 0 10px 30px #00000020;
+#         }
+
+#         h1 {
+#             color: #243b67;
+#             margin-bottom: 10px;
+#         }
+
+#         p {
+#             color: #666;
+#         }
+
+#         input {
+#             width: 100%;
+#             padding: 14px;
+#             margin: 15px 0;
+#             border: 1px solid #ccc;
+#             border-radius: 10px;
+#             font-size: 16px;
+#         }
+
+#         button {
+#             width: 100%;
+#             padding: 14px;
+#             background: #3568d4;
+#             color: white;
+#             border: none;
+#             border-radius: 10px;
+#             font-size: 16px;
+#             cursor: pointer;
+#         }
+
+#         button:hover {
+#             background: #244da8;
+#         }
+
+#         .weather {
+#             margin-top: 25px;
+#             padding: 20px;
+#             background: #eef5ff;
+#             border-radius: 15px;
+#         }
+
+#         .temperature {
+#             font-size: 48px;
+#             font-weight: bold;
+#             color: #3568d4;
+#             margin: 10px;
+#         }
+
+#         .details {
+#             text-align: left;
+#             line-height: 2.2;
+#             color: #333;
+#         }
+
+#         .error {
+#             color: #d93025;
+#             margin-top: 15px;
+#         }
+
+#         footer {
+#             margin-top: 22px;
+#             font-size: 12px;
+#             color: #888;
+#         }
+#     </style>
+# </head>
+
+# <body>
+#     <div class="container">
+#         <h1>🌤 Weather Report</h1>
+#         <p>Enter a city to check its current weather</p>
+
+#         <form method="POST">
+#             <input
+#                 type="text"
+#                 name="city"
+#                 placeholder="Enter city name"
+#                 value="{{ city }}"
+#                 required
+#             >
+#             <button type="submit">Get Weather</button>
+#         </form>
+
+#         {% if error %}
+#             <div class="error">{{ error }}</div>
+#         {% endif %}
+
+#         {% if weather %}
+#         <div class="weather">
+#             <h2>{{ weather.city }}</h2>
+#             <p>{{ weather.condition }}</p>
+
+#             <div class="temperature">
+#                 {{ weather.temperature }}°C
+#             </div>
+
+#             <div class="details">
+#                 <div>🌡 Feels Like: {{ weather.feels }}°C</div>
+#                 <div>💧 Humidity: {{ weather.humidity }}%</div>
+#                 <div>💨 Wind Speed: {{ weather.wind }} km/h</div>
+#                 <div>🌧 Rain: {{ weather.rain }} mm</div>
+#                 <div>🕒 Local Time: {{ weather.time }}</div>
+#             </div>
+#         </div>
+#         {% endif %}
+
+#         <footer>Weather data by Open-Meteo</footer>
+#     </div>
+# </body>
+# </html>
+# """
+
+# def get_weather(city):
+#     geo_url = "https://geocoding-api.open-meteo.com/v1/search"
+#     geo_response = requests.get(
+#         geo_url,
+#         params={"name": city, "count": 1, "language": "en"},
+#         timeout=15
+#     )
+#     geo_response.raise_for_status()
+#     places = geo_response.json().get("results", [])
+
+#     if not places:
+#         return None
+
+#     place = places[0]
+
+#     weather_url = "https://api.open-meteo.com/v1/forecast"
+#     response = requests.get(
+#         weather_url,
+#         params={
+#             "latitude": place["latitude"],
+#             "longitude": place["longitude"],
+#             "current": (
+#                 "temperature_2m,relative_humidity_2m,"
+#                 "apparent_temperature,precipitation,"
+#                 "rain,weather_code,wind_speed_10m"
+#             ),
+#             "timezone": "auto"
+#         },
+#         timeout=15
+#     )
+#     response.raise_for_status()
+#     data = response.json()["current"]
+
+#     codes = {
+#         0: "Clear Sky",
+#         1: "Mainly Clear",
+#         2: "Partly Cloudy",
+#         3: "Overcast",
+#         45: "Fog",
+#         48: "Fog",
+#         51: "Light Drizzle",
+#         53: "Drizzle",
+#         55: "Heavy Drizzle",
+#         61: "Light Rain",
+#         63: "Moderate Rain",
+#         65: "Heavy Rain",
+#         71: "Light Snow",
+#         73: "Snow",
+#         75: "Heavy Snow",
+#         80: "Rain Showers",
+#         81: "Rain Showers",
+#         82: "Heavy Rain Showers",
+#         95: "Thunderstorm",
+#         96: "Thunderstorm with Hail",
+#         99: "Thunderstorm with Hail"
+#     }
+
+#     return {
+#         "city": place["name"] + ", " + place.get("country", ""),
+#         "temperature": data.get("temperature_2m", "N/A"),
+#         "feels": data.get("apparent_temperature", "N/A"),
+#         "humidity": data.get("relative_humidity_2m", "N/A"),
+#         "wind": data.get("wind_speed_10m", "N/A"),
+#         "rain": data.get("rain", 0),
+#         "condition": codes.get(
+#             data.get("weather_code"), "Variable Conditions"
+#         ),
+#         "time": data.get("time", "").replace("T", " ")
+#     }
+
+
+# @app.route("/", methods=["GET", "POST"])
+# def home():
+#     weather = None
+#     error = None
+#     city = ""
+
+#     if request.method == "POST":
+#         city = request.form.get("city", "").strip()
+
+#         try:
+#             weather = get_weather(city)
+
+#             if weather is None:
+#                 error = "City not found. Please check the spelling."
+
+#         except requests.RequestException:
+#             error = "Unable to connect to the weather API. Check your internet."
+
+#     return render_template_string(
+#         HTML, weather=weather, error=error, city=city
+#     )
+
+
+# if __name__ == "__main__":
+#     app.run(debug=True)  program 2
+
