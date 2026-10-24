@@ -235,294 +235,294 @@
 #     }
 # }
 
-# HTML = """
-# <!DOCTYPE html>
-# <html lang="en">
-# <head>
-# <meta charset="UTF-8">
-# <meta name="viewport" content="width=device-width, initial-scale=1.0">
-# <title>Cinematic Python Lab</title>
-# <style>
-# * {
-#     margin: 0;
-#     padding: 0;
-#     box-sizing: border-box;
-# }
+HTML = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinematic Python Lab</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-# body {
-#     font-family: Consolas, monospace;
-#     background: #050713;
-#     color: #eef5ff;
-#     min-height: 100vh;
-#     overflow-x: hidden;
-# }
+body {
+    font-family: Consolas, monospace;
+    background: #050713;
+    color: #eef5ff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
 
-# body::before {
-#     content: "";
-#     position: fixed;
-#     inset: 0;
-#     background:
-#         radial-gradient(ellipse at 15% 20%, #123a6a88, transparent 45%),
-#         radial-gradient(ellipse at 85% 80%, #561c7380, transparent 40%);
-#     pointer-events: none;
-#     z-index: -1;
-# }
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 15% 20%, #123a6a88, transparent 45%),
+        radial-gradient(ellipse at 85% 80%, #561c7380, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+}
 
-# nav {
-#     padding: 22px 8%;
-#     display: flex;
-#     justify-content: space-between;
-#     align-items: center;
-#     border-bottom: 1px solid #ffffff15;
-#     background: #070a16bb;
-# }
+nav {
+    padding: 22px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ffffff15;
+    background: #070a16bb;
+}
 
-# .logo {
-#     font-size: 20px;
-#     font-weight: bold;
-#     color: #60eaff;
-#     letter-spacing: 2px;
-# }
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #60eaff;
+    letter-spacing: 2px;
+}
 
-# nav span {
-#     color: #aab7d1;
-#     font-size: 12px;
-# }
+nav span {
+    color: #aab7d1;
+    font-size: 12px;
+}
 
-# .hero {
-#     text-align: center;
-#     padding: 65px 20px 40px;
-#     animation: appear 1s ease;
-# }
+.hero {
+    text-align: center;
+    padding: 65px 20px 40px;
+    animation: appear 1s ease;
+}
 
-# .tag {
-#     color: #63efff;
-#     border: 1px solid #63efff66;
-#     padding: 8px 15px;
-#     border-radius: 30px;
-#     font-size: 11px;
-#     letter-spacing: 2px;
-# }
+.tag {
+    color: #63efff;
+    border: 1px solid #63efff66;
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
 
-# h1 {
-#     margin: 28px 0 15px;
-#     font-size: clamp(35px, 6vw, 68px);
-#     letter-spacing: -2px;
-#     background: linear-gradient(90deg, #ffffff, #63efff, #c69aff);
-#     -webkit-background-clip: text;
-#     -webkit-text-fill-color: transparent;
-# }
+h1 {
+    margin: 28px 0 15px;
+    font-size: clamp(35px, 6vw, 68px);
+    letter-spacing: -2px;
+    background: linear-gradient(90deg, #ffffff, #63efff, #c69aff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-# .hero p {
-#     color: #a5b4d0;
-#     line-height: 1.8;
-#     font-size: 14px;
-# }
+.hero p {
+    color: #a5b4d0;
+    line-height: 1.8;
+    font-size: 14px;
+}
 
-# .container {
-#     width: min(1100px, 90%);
-#     margin: auto;
-#     padding-bottom: 60px;
-# }
+.container {
+    width: min(1100px, 90%);
+    margin: auto;
+    padding-bottom: 60px;
+}
 
-# .grid {
-#     display: grid;
-#     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-#     gap: 18px;
-# }
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+}
 
-# .card {
-#     background: linear-gradient(145deg, #151c30dd, #0b1020ee);
-#     border: 1px solid #ffffff19;
-#     border-radius: 18px;
-#     padding: 24px;
-#     transition: .3s;
-#     box-shadow: 0 10px 35px #00000020;
-# }
+.card {
+    background: linear-gradient(145deg, #151c30dd, #0b1020ee);
+    border: 1px solid #ffffff19;
+    border-radius: 18px;
+    padding: 24px;
+    transition: .3s;
+    box-shadow: 0 10px 35px #00000020;
+}
 
-# .card:hover {
-#     transform: translateY(-6px);
-#     border-color: #5eeaff88;
-#     box-shadow: 0 0 28px #27d9ff15;
-# }
+.card:hover {
+    transform: translateY(-6px);
+    border-color: #5eeaff88;
+    box-shadow: 0 0 28px #27d9ff15;
+}
 
-# .number {
-#     color: #63efff;
-#     font-size: 12px;
-#     letter-spacing: 2px;
-# }
+.number {
+    color: #63efff;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
 
-# h2 {
-#     font-size: 18px;
-#     margin: 15px 0 10px;
-# }
+h2 {
+    font-size: 18px;
+    margin: 15px 0 10px;
+}
 
-# .card p {
-#     color: #9eacc6;
-#     font-size: 12px;
-#     line-height: 1.7;
-#     min-height: 35px;
-# }
+.card p {
+    color: #9eacc6;
+    font-size: 12px;
+    line-height: 1.7;
+    min-height: 35px;
+}
 
-# pre {
-#     background: #050914;
-#     border: 1px solid #ffffff12;
-#     padding: 16px;
-#     margin: 18px 0;
-#     border-radius: 10px;
-#     color: #a8ffca;
-#     font-size: 13px;
-#     line-height: 1.8;
-#     white-space: pre-wrap;
-#     overflow-wrap: anywhere;
-# }
+pre {
+    background: #050914;
+    border: 1px solid #ffffff12;
+    padding: 16px;
+    margin: 18px 0;
+    border-radius: 10px;
+    color: #a8ffca;
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
 
-# button {
-#     width: 100%;
-#     padding: 13px;
-#     background: linear-gradient(90deg, #00c9e8, #8172ff);
-#     border: none;
-#     border-radius: 9px;
-#     color: #050713;
-#     font-family: inherit;
-#     font-weight: bold;
-#     cursor: pointer;
-#     transition: .25s;
-# }
+button {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(90deg, #00c9e8, #8172ff);
+    border: none;
+    border-radius: 9px;
+    color: #050713;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .25s;
+}
 
-# button:hover {
-#     box-shadow: 0 0 22px #46dfff55;
-#     transform: scale(1.02);
-# }
+button:hover {
+    box-shadow: 0 0 22px #46dfff55;
+    transform: scale(1.02);
+}
 
-# .output {
-#     margin-top: 35px;
-#     padding: 28px;
-#     background: #080d1b;
-#     border: 1px solid #63efff66;
-#     border-radius: 18px;
-#     box-shadow: 0 0 30px #00d9ff10;
-# }
+.output {
+    margin-top: 35px;
+    padding: 28px;
+    background: #080d1b;
+    border: 1px solid #63efff66;
+    border-radius: 18px;
+    box-shadow: 0 0 30px #00d9ff10;
+}
 
-# .output h2 {
-#     color: #63efff;
-# }
+.output h2 {
+    color: #63efff;
+}
 
-# .output pre {
-#     min-height: 90px;
-#     color: #a8ffca;
-# }
+.output pre {
+    min-height: 90px;
+    color: #a8ffca;
+}
 
-# .status {
-#     color: #8dffbb;
-#     font-size: 12px;
-# }
+.status {
+    color: #8dffbb;
+    font-size: 12px;
+}
 
-# footer {
-#     text-align: center;
-#     padding: 25px;
-#     color: #71809d;
-#     border-top: 1px solid #ffffff12;
-#     font-size: 11px;
-#     letter-spacing: 1px;
-# }
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #71809d;
+    border-top: 1px solid #ffffff12;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
 
-# @keyframes appear {
-#     from { opacity: 0; transform: translateY(20px); }
-#     to { opacity: 1; transform: translateY(0); }
-# }
+@keyframes appear {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-# @media (max-width: 600px) {
-#     nav { padding: 18px 5%; }
-#     .hero { padding-top: 45px; }
-#     .container { width: 92%; }
-# }
-# </style>
-# </head>
-# <body>
+@media (max-width: 600px) {
+    nav { padding: 18px 5%; }
+    .hero { padding-top: 45px; }
+    .container { width: 92%; }
+}
+</style>
+</head>
+<body>
 
-# <nav>
-#     <div class="logo">◈ PYTHON LAB</div>
-#     <span>FLASK · LEARN · BUILD</span>
-# </nav>
+<nav>
+    <div class="logo">◈ PYTHON LAB</div>
+    <span>FLASK · LEARN · BUILD</span>
+</nav>
 
-# <section class="hero">
-#     <span class="tag">INTERACTIVE CODING EXPERIENCE</span>
-#     <h1>Cinematic Loop Lab</h1>
-#     <p>Explore Python for loops in a futuristic coding environment.<br>
-#        Select an experiment and watch your output appear.</p>
-# </section>
+<section class="hero">
+    <span class="tag">INTERACTIVE CODING EXPERIENCE</span>
+    <h1>Cinematic Loop Lab</h1>
+    <p>Explore Python for loops in a futuristic coding environment.<br>
+       Select an experiment and watch your output appear.</p>
+</section>
 
-# <main class="container">
-#     <div class="grid">
-#         {% for key, item in examples.items() %}
-#         <section class="card">
-#             <span class="number">EXPERIMENT 0{{ key }}</span>
-#             <h2>{{ item.title }}</h2>
-#             <p>{{ item.description }}</p>
-#             <pre>{{ item.code }}</pre>
-#             <form method="POST">
-#                 <input type="hidden" name="example" value="{{ key }}">
-#                 <button type="submit">▶ RUN CODE</button>
-#             </form>
-#         </section>
-#         {% endfor %}
-#     </div>
+<main class="container">
+    <div class="grid">
+        {% for key, item in examples.items() %}
+        <section class="card">
+            <span class="number">EXPERIMENT 0{{ key }}</span>
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.description }}</p>
+            <pre>{{ item.code }}</pre>
+            <form method="POST">
+                <input type="hidden" name="example" value="{{ key }}">
+                <button type="submit">▶ RUN CODE</button>
+            </form>
+        </section>
+        {% endfor %}
+    </div>
 
-#     <section class="output" id="output">
-#         <h2>⌁ Terminal Output</h2>
-#         {% if selected %}
-#             <p class="status">● EXECUTION COMPLETED</p>
-#             <pre>{{ result }}</pre>
-#         {% else %}
-#             <p>Choose an experiment above to see the result.</p>
-#             <pre>Waiting for your code...</pre>
-#         {% endif %}
-#     </section>
-# </main>
+    <section class="output" id="output">
+        <h2>⌁ Terminal Output</h2>
+        {% if selected %}
+            <p class="status">● EXECUTION COMPLETED</p>
+            <pre>{{ result }}</pre>
+        {% else %}
+            <p>Choose an experiment above to see the result.</p>
+            <pre>Waiting for your code...</pre>
+        {% endif %}
+    </section>
+</main>
 
-# <footer>PYTHON LOOP PLAYGROUND · POWERED BY FLASK</footer>
+<footer>PYTHON LOOP PLAYGROUND · POWERED BY FLASK</footer>
 
-# {% if selected %}
-# <script>
-# window.addEventListener("load", function () {
-#     document.getElementById("output").scrollIntoView({
-#         behavior: "smooth",
-#         block: "center"
-#     });
-# });
-# </script>
-# {% endif %}
+{% if selected %}
+<script>
+window.addEventListener("load", function () {
+    document.getElementById("output").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+});
+</script>
+{% endif %}
 
-# </body>
-# </html>
-# """
+</body>
+</html>
+"""
 
-# @app.route("/", methods=["GET", "POST"])
-# def home():
-#     result = ""
-#     selected = False
+@app.route("/", methods=["GET", "POST"])
+def home():
+    result = ""
+    selected = False
 
-#     if request.method == "POST":
-#         key = request.form.get("example", "")
+    if request.method == "POST":
+        key = request.form.get("example", "")
 
-#         if key in examples:
-#             output = StringIO()
-#             code = examples[key]["code"]
+        if key in examples:
+            output = StringIO()
+            code = examples[key]["code"]
 
-#             # Run only the predefined examples.
-#             with redirect_stdout(output):
-#                 exec(compile(code, "<loop-example>", "exec"), {})
+            # Run only the predefined examples.
+            with redirect_stdout(output):
+                exec(compile(code, "<loop-example>", "exec"), {})
 
-#             result = output.getvalue()
-#             selected = True
+            result = output.getvalue()
+            selected = True
 
-#     return render_template_string(
-#         HTML,
-#         examples=examples,
-#         result=result,
-#         selected=selected
-#     )
+    return render_template_string(
+        HTML,
+        examples=examples,
+        result=result,
+        selected=selected
+    )
 
-# if __name__ == "__main__":
-#     app.run(debug=True)  # cinematic design
+if __name__ == "__main__":
+    app.run(debug=True)  # cinematic design
