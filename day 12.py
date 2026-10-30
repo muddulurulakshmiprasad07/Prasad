@@ -21,9 +21,10 @@
 # print(lst[-2:-5:-1])
 # print(lst[::-1])  #negative slicing
 
-profits=[200,450,600]
-max_profit=profits[0]
-for p in profits:
-    if p>max_profit:
-        max_profit=p
-print("highest profit:",max_profit)  #print max number in this profits function
+# profits=[200,450,600]
+# max_profit=profits[0]
+# for p in profits:
+#     if p>max_profit:
+#         max_profit=p
+# print("highest profit:",max_profit)  #print max number in this profits function
+
