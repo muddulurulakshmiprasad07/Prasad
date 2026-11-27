@@ -28,4 +28,20 @@
 #hero.attack()
 #hero.heal()
 
-    
+
+# class ImageContent:
+    # def apply_filter(self):
+        # print("Applying 'vintage' filter to the image...")
+
+# class TextContent:
+    # def check_grammar(self):
+        # print("Scanning text for spelling errors...")
+
+# class SocialMediaPost(ImageContent, TextContent):
+    # def upload(self):
+        # print("Post is now live on the feed!")
+
+# my_post = SocialMediaPost()
+# my_post.check_grammar()
+# my_post.apply_filter()
+# my_post.upload()
